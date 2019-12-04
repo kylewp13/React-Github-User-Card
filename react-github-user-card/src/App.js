@@ -16,7 +16,7 @@ class App extends React.Component {
     axios
       .get(`https://api.github.com/users/${this.state.myCard}/followers`)
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.setState({
           myFriends: res.data
         })
@@ -27,51 +27,54 @@ class App extends React.Component {
     axios
       .get(`https://api.github.com/users/${this.state.myCard}`)
       .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         this.setState({
           myCardData: res.data
         })
-        console.log(this.state.myFriends)
-      })
-  }
-
-  componentDidUpdate() {
-    console.log('CDU')
-    axios
-      .get(`https://api.github.com/users/${this.state.myCard}/followers`)
-      .then(res => {
-        console.log(res.data)
-        if (this.state.myCard !== res.data){
-          this.setState({
-          myFriends: res.data
-        })}
       })
       .catch(err => {
         console.log("The data was not returned for myCard", err);
         });
-    axios
-      .get(`https://api.github.com/users/${this.state.myCard}`)
-      .then(res => {
-        console.log(res.data)
-        if (this.state.myFriends !== res.data){
-          this.setState({
-          myCardData: res.data
-        })}
-        console.log(this.state.myFriends)
-      })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    console.log('update')
+  }
+  
   addNewUser = (addUserName) => {
     this.setState({
       myCard: addUserName
     })
+    axios
+      .get(`https://api.github.com/users/${this.state.myCard}/followers`)
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          myFriends: res.data
+        })
+      })
+      .catch(err => {
+        console.log("The data was not returned for myCard", err);
+        });
+    axios
+      .get(`https://api.github.com/users/${this.state.myCard}`)
+      .then(res => {
+        console.log(res.data)
+        this.setState({
+          myCardData: res.data
+        })
+      })
+      .catch(err => {
+        console.log("The data was not returned for myCard", err);
+        });
   };
 
   render() {
-      console.log(this.state.myFriends)
+    console.log('render')
+    console.log(this.state.myFriends)
     return (
       <div>
-        <UserForm addNewUser={this.addNewUser} />
+        <UserForm addNewUser={this.addNewUser}/>
         <UserCard data={this.state.myCardData}/>
         <Followers data={this.state.myFriends}/>
       </div>
