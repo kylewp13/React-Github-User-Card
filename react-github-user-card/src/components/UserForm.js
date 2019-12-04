@@ -33,7 +33,7 @@ class UserForm extends Component {
             name="search"
             onChange={this.handleChanges}
             />
-            <button>Search</button>
+            <button onChange={this.fetchUser}>Search</button>
         </form>
     );
   }
