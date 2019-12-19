@@ -29,7 +29,7 @@ class UserForm extends Component {
             <input
             type="text"
             placeholder="Search for a GitHub user"
-            value={this.search}
+            value={this.state.search}
             name="search"
             onChange={this.handleChanges}
             />

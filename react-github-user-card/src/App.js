@@ -46,7 +46,7 @@ class App extends React.Component {
       myCard: addUserName
     })
     axios
-      .get(`https://api.github.com/users/${this.state.myCard}/followers`)
+      .get(`https://api.github.com/users/${addUserName}/followers`)
       .then(res => {
         console.log(res.data)
         this.setState({
@@ -57,7 +57,7 @@ class App extends React.Component {
         console.log("The data was not returned for myCard", err);
         });
     axios
-      .get(`https://api.github.com/users/${this.state.myCard}`)
+      .get(`https://api.github.com/users/${addUserName}`)
       .then(res => {
         console.log(res.data)
         this.setState({
